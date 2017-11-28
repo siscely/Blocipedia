@@ -1,20 +1,14 @@
 require 'rails_helper'
 
+
 RSpec.describe WikisController, type: :controller do
   
   let(:my_wiki) { Wiki.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph) }
-  describe "GET #index" do
-    it "returns http success" do
-      get :index
-      expect(response).to have_http_status(:success)
-    end
-   
-    it "assigns [my_wiki] to @wikis" do
-       get :index
  
-       expect(assigns(:wikis)).to eq([my_wiki])
-     end
-  end
+before :each do
+  my_user = User.create!(name: "Bloccit User", email: "user@bloccit.com", password: "helloworld")
+  sign_in my_user
+end
 
 describe "GET show" do
      it "returns http success" do
@@ -90,7 +84,7 @@ describe "GET show" do
      it "assigns wiki to be updated to @wiki" do
        get :edit, params: { id: my_wiki.id }
  
-       post_instance = assigns(:wiki)
+       wiki_instance = assigns(:wiki)
  
        expect(wiki_instance.id).to eq my_wiki.id
        expect(wiki_instance.title).to eq my_wiki.title
