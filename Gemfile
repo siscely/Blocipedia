@@ -41,6 +41,7 @@ source 'https://rubygems.org'
  
  gem 'bootstrap-sass'
  gem 'devise'
+ gem 'pundit'
  
   group :development, :test do
    gem 'rspec-rails', '~> 3.0'
