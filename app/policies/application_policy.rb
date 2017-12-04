@@ -15,7 +15,7 @@ class ApplicationPolicy
   end
 
   def create?
-    false
+    user.present?
   end
 
   def new?
@@ -23,6 +23,12 @@ class ApplicationPolicy
   end
 
   def update?
+    # if record.private?
+    #   # permissions for private wikis
+    # else
+    #   # permissions for public
+    #   user.present? && record.user == user
+    # end
     user.present?
   end
 
@@ -31,7 +37,7 @@ class ApplicationPolicy
   end
 
   def destroy?
-    false
+    user.present?
   end
 
   def scope

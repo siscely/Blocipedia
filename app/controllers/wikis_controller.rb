@@ -1,5 +1,8 @@
 class WikisController < ApplicationController
 
+  def index
+    @wikis = Wiki.all
+  end
 
   def show
     @wiki = Wiki.find(params[:id])
@@ -7,14 +10,12 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
-
-     @wiki = Wiki.new
-     @wiki.title = params[:wiki][:title]
-     @wiki.body = params[:wiki][:body]
-
+     @wiki = Wiki.new(wiki_params)
+     authorize @wiki
 
      if @wiki.save
 
@@ -30,13 +31,14 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
   def update
      @wiki = Wiki.find(params[:id])
-     @wiki.title = params[:wiki][:title]
-     @wiki.body = params[:wiki][:body]
-     # authorize @wiki
+     @wiki.assign_attributes(wiki_params)
+     
+     authorize @wiki
      if @wiki.save
        flash[:notice] = "Wiki was updated."
        redirect_to @wiki
@@ -48,6 +50,7 @@ class WikisController < ApplicationController
 
    def destroy
      @wiki = Wiki.find(params[:id])
+     authorize @wiki
 
 
      if @wiki.destroy
@@ -57,5 +60,11 @@ class WikisController < ApplicationController
        flash.now[:alert] = "There was an error deleting the wiki."
        render :show
      end
+   end
+   
+   private 
+   
+   def wiki_params
+       params.require(:wiki).permit(:title, :body)
    end
 end
