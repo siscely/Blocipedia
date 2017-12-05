@@ -35,4 +35,8 @@ class ChargesController < ApplicationController
      amount: Amount.default
    }
  end
+ 
+    def downgrade
+     current_user.standard!
+    end
 end

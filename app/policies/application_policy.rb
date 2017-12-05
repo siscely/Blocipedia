@@ -23,13 +23,13 @@ class ApplicationPolicy
   end
 
   def update?
-    # if record.private?
-    #   # permissions for private wikis
-    # else
-    #   # permissions for public
-    #   user.present? && record.user == user
-    # end
-    user.present?
+    if record.private?
+      # permissions for private wikis
+    else
+      # permissions for public
+      user.present? && record.user == user
+    end
+    
   end
 
   def edit?
