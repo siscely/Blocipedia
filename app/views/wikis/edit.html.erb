@@ -10,6 +10,7 @@
      </ul>
    </div>
    <div class="col-md-8">
+    <%= render partial: 'form', locals: { wiki: @wiki } %>
      <%= form_for @wiki do |f| %>
        <div class="form-group">
          <%= f.label :title %>
