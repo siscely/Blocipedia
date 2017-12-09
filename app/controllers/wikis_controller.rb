@@ -1,11 +1,7 @@
 class WikisController < ApplicationController
 
   def index
-     wiki = Wiki.find(params[:id])
-     if current_user == wiki.premium? || current_user.admin?
-       @wikis = Wiki.all
-     end
-    
+      @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -69,7 +65,7 @@ class WikisController < ApplicationController
    private 
    
    def wiki_params
-       params.require(:wiki).permit(:title, :body)
+       params.require(:wiki).permit(:title, :body, :private)
    end
 end
 

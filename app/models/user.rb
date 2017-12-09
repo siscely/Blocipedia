@@ -7,4 +7,5 @@ class User < ApplicationRecord
   after_initialize { self.role ||= :standard }
   
   enum role: [:standard, :premium, :admin]
+  has_many :wikis
 end

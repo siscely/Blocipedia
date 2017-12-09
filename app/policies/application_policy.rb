@@ -24,10 +24,10 @@ class ApplicationPolicy
 
   def update?
     if record.private?
-      # permissions for private wikis
+     user.present? && (record.user == user || user.admin?)
     else
       # permissions for public
-      user.present? && record.user == user
+      user.present?
     end
     
   end

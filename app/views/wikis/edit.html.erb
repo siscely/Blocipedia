@@ -10,7 +10,6 @@
      </ul>
    </div>
    <div class="col-md-8">
-    <%= render partial: 'form', locals: { wiki: @wiki } %>
-
+    <%= link_to "Manage Collaborators", wiki_colloaborators_path(@wiki), class: 'btn btn-info' %>
    </div>
  </div>
