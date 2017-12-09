@@ -5,10 +5,11 @@
  <% @users.each do |user| %>
     <tr>
        <td><%@user.email %></td>
-       <td><%= link_to_if(@wiki.users.user? "Add collaborator", wiki_collaborator_path(@wiki user_id: user.id, collaborator), method: :post, class: 'btn btn-success%>)</td>
-       <td><%= link_to_if(@wiki.users.user? "Remove collaborator", wiki_collaborator_path(@wiki user_id: user.id, collaborator), method: :delete, class: 'btn btn-danger'%>)</td>
+       <td><%= link_to_if(@wiki.users.user? "Add collaborator", wiki_collaborator_path(@wiki, user_id: user.id, collaborator), method: :post, class: 'btn btn-success%>)</td>
+       <td><%= link_to_if(@wiki.users.user? "Remove collaborator", wiki_collaborator_path(@wiki, user_id: user.id, collaborator), method: :delete, class: 'btn btn-danger'%>)</td>
     </tr>
 <% end %>
   </div>
 </div>
+
  
