@@ -45,6 +45,7 @@ source 'https://rubygems.org'
  gem 'faker'
  gem 'stripe'
  gem 'figaro', '1.0'
+ gem 'redcarpet'
  
   group :development, :test do
    gem 'rspec-rails', '~> 3.0'

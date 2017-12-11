@@ -18,7 +18,7 @@ class ChargesController < ApplicationController
    current_user.premium!
  
    flash[:notice] = "Thanks for all the money, #{current_user.email}! Feel free to pay me again."
-   redirect_to current_user
+   redirect_to root_path
  
    # Stripe will send back CardErrors, with friendly messages
    # when something goes wrong.
@@ -40,6 +40,6 @@ class ChargesController < ApplicationController
      current_user.standard!
      current_user.wikis.update_all(private: false)
      flash[:notice] = "Successfully downgraded"
-     redirect_to current_user
+     redirect_to root_path
     end
 end

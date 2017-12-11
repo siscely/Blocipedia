@@ -2,13 +2,21 @@
 
 <div class = "row">
  <div class = "col-md-4", style = "width: auto;">
- <% @users.each do |user| %>
-    <tr>
-       <td><%@user.email %></td>
-       <td><%= link_to_if(@wiki.users.user? "Add collaborator", wiki_collaborator_path(@wiki, user_id: user.id, collaborator), method: :post, class: 'btn btn-success%>)</td>
-       <td><%= link_to_if(@wiki.users.user? "Remove collaborator", wiki_collaborator_path(@wiki, user_id: user.id, collaborator), method: :delete, class: 'btn btn-danger'%>)</td>
-    </tr>
-<% end %>
+     <table class="table">
+         <% @users.each do |user| %>
+            <% collaborator = @wiki.collaborator_for(user) %>
+            <tr>
+               <td><%= user.email %></td>
+               <td>
+                  <% if @wiki.users.include?(user) %>
+                     <%= link_to "Remove collaborator", wiki_collaborator_path(@wiki,collaborator), method: :delete, class: 'btn btn-danger'%>
+                   <% else %>
+                    <%= link_to "Add collaborator", wiki_collaborators_path(@wiki, user_id: user.id), method: :post, class: 'btn btn-success'%>
+                   <% end %> 
+               </td>
+            </tr>
+        <% end %>
+     </table>
   </div>
 </div>
 

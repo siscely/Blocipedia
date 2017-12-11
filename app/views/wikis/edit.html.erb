@@ -8,8 +8,9 @@
        <li>Don't use the letter "A".</li>
        <li>The incessant use of hashtags will get you banned.</li>
      </ul>
+     <%= render "form" %>
    </div>
    <div class="col-md-8">
-    <%= link_to "Manage Collaborators", wiki_colloaborators_path(@wiki), class: 'btn btn-info' %>
+    <%= link_to "Manage Collaborators", wiki_collaborators_path(@wiki), class: 'btn btn-info' %>
    </div>
  </div>
