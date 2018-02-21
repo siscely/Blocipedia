@@ -207,3 +207,11 @@ Since Userpedia allows premium users to downgrade their accounts, what should ha
 1. As a premium user, create a private wiki. Sign in with a standard user. Do you see the private wiki in the wikis index?
 1. As a premium user, create a private wiki. Downgrade your account to standard. Verify that their private wikis are made public.
 
+## Markdown
+As a user, I want to edit wikis using Markdown syntax
+
+### Incorporate Redcarpet
+Use the Redcarpet gem to parse Markdown syntax.
+
+### Test Your Code
+View a wiki page built with Markdown, does it render the Markdown properly?
