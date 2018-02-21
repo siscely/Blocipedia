@@ -98,7 +98,7 @@ Gemfile
 As a user, I want to sign up for a free account by providing a user name, password and email
 
 ### Incorporate Devise
-Use the Devise gem for authentication. Userpedia's authentication system should allow users to sign up and send emails for account confirmation. Refer to the Devise Resource and the Devise Getting Started Guide for examples on implementing user sign up.
+Use the Devise gem for authentication. Userpedia's authentication system should allow users to sign up and send emails for account confirmation.
 
 ### Test Your Code
 1. Sign a new user up. Do you receive a confirmation email?
@@ -108,7 +108,7 @@ Use the Devise gem for authentication. Userpedia's authentication system should 
 ## User Sign in and Out
 As a user, I want to sign in and out of Userpedia
 
-Now that users can sign up for Userpedia, you want to give them a way to sign in and out of the app. Refer to our Devise Resource and the Devise Getting Started Guide for examples on implementing user sign in/out with Devise.
+Now that users can sign up for Userpedia, you want to give them a way to sign in and out of the app. 
 
 ### Test Your Code
 1. Sign into Userpedia, does the top navigation change to indicate you are signed in?
@@ -135,7 +135,7 @@ The wikis_controller will replace the posts_controller in Userpedia.
 As a developer, I want to offer three user roles: admin, standard, or premium
 
 ### Incorporate Pundit
-Use the Pundit gem for authorization. Users should have one of three roles: standard (free), premium, or admin. Refer to the Pundit Readme checkpoint for examples of using Pundit policies.
+Use the Pundit gem for authorization. Users should have one of three roles: standard (free), premium, or admin. 
 
 ### Default to Standard
 Users should default to the standard role when they are first created. There are several ways to implement default values. Use the after_initialize callback approach to implement default values for roles.
@@ -150,4 +150,39 @@ app/policies/application_policy
 ### Test Your Code
 1. Use the Rails console to create a new user. Are they given the default role?
 1. Are you able to edit wikis created by another user?
+
+## Seeding Data
+As a developer, I want to seed the development database automatically with users and wikis
+
+### Seed With Faker
+Now that user and wiki models are established, you can seed data into the development database. Use the Faker gem to generate fake 1 data for users and wikis.
+
+### Test Your Code
+Rebuild your database, is it seeded with the data you specified?
+
+## Upgrading an Account
+As a user, I want to upgrade my account from a free to a paid plan
+
+### Determine a User Flow
+A user flow is the path a user follows to complete a task in the app.
+
+Here is a hypothetical user flow for Userpedia:
+
+1. The user signs up for a free plan.
+1. The user upgrades their free plan and is prompted to pay with Stripe.
+1. The user's role is changed from standard to premium.
+1. The user is able to create private wikis.
+
+### Incorporate Stripe
+Use Stripe to charge users before switching their account role from standard to premium. Make the price of the premium user upgrade 15 dollars. Implement Stripe using the Stripe Integration Resource.
+
+You could also upgrade a user before you charge them via Stripe. Why would you want to charge users before you upgrade them?
+
+### Downgrade Back to Standard
+You should also allow a user to downgrade their premium account to a standard account. 
+
+### Test Your Code
+1. Upgrade an existing user account. Was your Stripe account charged? Was the user role changed?
+1. Downgrade a premium user. Was your Stripe account charged? Was their role changed?
+
 
