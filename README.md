@@ -104,3 +104,14 @@ Use the Devise gem for authentication. Userpedia's authentication system should 
 1. Sign a new user up. Do you receive a confirmation email?
 1. What happens if you attempt to sign up with an invalid email?
 1. What happens if you attempt to sign up with a duplicate email?
+
+## User Sign in and Out
+As a user, I want to sign in and out of Userpedia
+
+Now that users can sign up for Userpedia, you want to give them a way to sign in and out of the app. Refer to our Devise Resource and the Devise Getting Started Guide for examples on implementing user sign in/out with Devise.
+
+### Test Your Code
+1. Sign into Userpedia, does the top navigation change to indicate you are signed in?
+1. Sign out of Userpedia, does the top navigation change to indicate you are signed out?
+1. What happens if you attempt to reset your password?
+
