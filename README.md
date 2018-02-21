@@ -124,9 +124,30 @@ Create the wiki model. For guidance, you can refer to the Models Checkpoint. Sta
 ```
 Terminal
 $ rails g model Wiki title:string body:text private:boolean user:references:index
-The wikis_controller will replace the posts_controller in Blocipedia.
+The wikis_controller will replace the posts_controller in Userpedia.
 ```
 ### Test Your Code
 1. Are you able to create new public wikis?
 1. Are you able to update public wikis?
 1. Are you able to delete public wikis?
+
+## User Roles
+As a developer, I want to offer three user roles: admin, standard, or premium
+
+### Incorporate Pundit
+Use the Pundit gem for authorization. Users should have one of three roles: standard (free), premium, or admin. Refer to the Pundit Readme checkpoint for examples of using Pundit policies.
+
+### Default to Standard
+Users should default to the standard role when they are first created. There are several ways to implement default values. Use the after_initialize callback approach to implement default values for roles.
+
+In Userpedia, users should be able to edit any public wiki. To allow this behavior, change the update? method in application_policy.rb:
+```
+app/policies/application_policy
+  def update?
+    user.present?
+  end
+  ```
+### Test Your Code
+1. Use the Rails console to create a new user. Are they given the default role?
+1. Are you able to edit wikis created by another user?
+
