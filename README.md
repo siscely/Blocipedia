@@ -115,3 +115,18 @@ Now that users can sign up for Userpedia, you want to give them a way to sign in
 1. Sign out of Userpedia, does the top navigation change to indicate you are signed out?
 1. What happens if you attempt to reset your password?
 
+## Wiki CRUD
+As a user with a standard account, I want to create, read, update, and delete public wikis
+
+### Create the Model
+Create the wiki model. For guidance, you can refer to the Models Checkpoint. Start by generating the Wiki model:
+
+```
+Terminal
+$ rails g model Wiki title:string body:text private:boolean user:references:index
+The wikis_controller will replace the posts_controller in Blocipedia.
+```
+### Test Your Code
+1. Are you able to create new public wikis?
+1. Are you able to update public wikis?
+1. Are you able to delete public wikis?
