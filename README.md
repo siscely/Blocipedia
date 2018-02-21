@@ -185,4 +185,25 @@ You should also allow a user to downgrade their premium account to a standard ac
 1. Upgrade an existing user account. Was your Stripe account charged? Was the user role changed?
 1. Downgrade a premium user. Was your Stripe account charged? Was their role changed?
 
+## Private Wikis
+As a premium user, I want to create private wikis
+
+### Implement Privacy Controls
+Premium and admin users should be able to create new private wikis and make public wikis private. Check the user's role before allowing them to edit a wiki's private attribute:
+```
+app/views/wikis/_form.html.erb
+<% if current_user.admin? || current_user.premium? %>
+  <div class="form-group">
+    <%= f.label :private, class: 'checkbox' do %>
+      <%= f.check_box :private %> Private wiki
+    <% end %>
+  </div>
+<% end %>
+```
+### Downgrade Private Wikis
+Since Userpedia allows premium users to downgrade their accounts, what should happen to their private wikis?* Build a user flow for this scenario which prompts the user with a reminder that their private wikis will become public if they downgrade their account.
+
+### Test Your Code
+1. As a premium user, create a private wiki. Sign in with a standard user. Do you see the private wiki in the wikis index?
+1. As a premium user, create a private wiki. Downgrade your account to standard. Verify that their private wikis are made public.
 
