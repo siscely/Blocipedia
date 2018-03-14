@@ -100,6 +100,95 @@ As a user, I want to sign up for a free account by providing a user name, passwo
 ### Incorporate Devise
 Use the Devise gem for authentication. Userpedia's authentication system should allow users to sign up and send emails for account confirmation.
 
+### Adding Authentication to a Rails App with Devise
+Devise is a Ruby gem that is a "flexible authentication solution for Rails with Warden". Devise abstracts away many of the gritty details of building a custom authentication system.
+
+#### Install
+Open your Gemfile and add the gem:
+
+```
+gem 'devise'
+```
+Then run bundle install as usual. Next, use rails generate to install Devise:
+
+Terminal
+```
+$ rails g devise:install
+```
+#### Configure
+We need to configure Devise. Our app's configuration files are in the config/environments/ directory. Let's assume we're working a development environment. Open config/environments/development.rb and add the following anywhere between Rails.application.configure do and end:
+```
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+```
+#### Create User Model
+Devise is installed and configured, let's use it. In order to harness to the power of Devise, create a User model:
+
+Terminal
+```
+$ rails g devise user
+      invoke  active_record
+      create    db/migrate/20150710184201_devise_create_users.rb
+      create    app/models/user.rb
+      invoke    rspec
+      create      spec/models/user_spec.rb
+      insert    app/models/user.rb
+       route  devise_for :users
+```       
+We see that Rails has generated a migration file, model, spec file, and routes for :users. Let's run our migrations:
+
+Terminal
+$ rake db:migrate
+
+...
+Create a User
+Start your rails server:
+
+Terminal
+$ rails s
+Open http://localhost:3000/users/sign_up in your browser and create a user account.
+
+Let's add some basic navigation to show our app if we are signed in:
+
+app/views/layouts/application.html.erb
+...
+
+ # #1
+ <% if user_signed_in? %>
+   Signed in as: <strong><%= current_user.email %></strong> |
+   <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> - <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+ <% else %>
+ # #2
+   <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link'  %> -
+   <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link'  %>
+ <% end %>
+
+...
+At #1, we check if the user is signed in with if user_signed_in?. If they are, we display their email address which is the unique identifier and a button to sign out.
+
+At #2, we display Sign Up and Sign In buttons if the user is not logged in.
+
+Finally, let's redirect the user to the login page if they're not signed in:
+
+app/controllers/application_controller.rb
+before_action :authenticate_user!
+Add built in RSpec helpers
+Most of the features of an application that uses Devise are only accessible if the user is signed in. That means that being able to test those features requires us to mock/fake the sign in process first. Once we have a signed in user, we can execute the actual test.
+
+Luckily for us, devise has some built in test features that make signing in or signing out in our tests very simple.
+
+In spec/spec_helper.rb add the following line to the top of the file: require 'rspec/rails'.
+
+Then add the following lines inside the bloc being passed to RSpec.configure:
+
+spec/spec_helper.rb
+  RSpec.configure do |config|
+    ...
+    config.include Devise::Test::ControllerHelpers, type: :controller
+    config.include Devise::Test::ControllerHelpers, type: :view
+    ...
+  end
+Now in your controller specs anytime you need to login or logout before performing the test, you have access to the sign_in and sign_out helper methods.
+
 ### Test Your Code
 1. Sign a new user up. Do you receive a confirmation email?
 1. What happens if you attempt to sign up with an invalid email?
